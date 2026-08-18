@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chanon's Trombone Collection</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --brass:     #B8862E;
+    --brass-lt:  #D4A94A;
+    --brass-dk:  #7A5A1E;
+    --slide:     #2C2C2C;
+    --parchment: #F7F2E8;
+    --cream:     #EDE6D6;
+    --ink:       #1A1A1A;
+    --muted:     #6B6050;
+    --accent:    #8B1A1A;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--slide);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, #1A1208 0%, #2C2210 50%, #1A1208 100%);
+    padding: 70px 40px 60px;
+    text-align: center;
+    border-bottom: 3px solid var(--brass);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '♩ ♪ ♫ ♬';
+    position: absolute;
+    top: 16px; left: 50%; transform: translateX(-50%);
+    font-size: 18px;
+    color: var(--brass-dk);
+    letter-spacing: 24px;
+    opacity: 0.5;
+  }
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--brass-lt);
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 58px);
+    font-weight: 700;
+    color: var(--parchment);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 em {
+    color: var(--brass-lt);
+    font-style: italic;
+  }
+  .hero p {
+    color: var(--muted);
+    font-size: 15px;
+    font-weight: 300;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* BODY WRAPPER */
+  .wrapper {
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    background: var(--parchment);
+  }
+
+  /* SECTION DIVIDER */
+  .section-intro {
+    padding: 52px 0 28px;
+    border-bottom: 1px solid var(--cream);
+    margin-bottom: 36px;
+  }
+  .section-intro h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .section-intro p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 680px;
+  }
+
+  /* CARD GRID */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 4px;
+    border-top: 4px solid var(--brass);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+  }
+
+  .card-photo {
+    width: 100%;
+    height: 200px;
+    background-color: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid var(--cream);
+  }
+
+  .card-head {
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid var(--cream);
+  }
+  .card-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 6px;
+  }
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .card-era {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .card-body {
+    padding: 18px 24px 22px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px 0;
+    border-bottom: 1px dotted #E8E0D0;
+    font-size: 13px;
+  }
+  .spec-row:last-of-type { border-bottom: none; }
+  .spec-key {
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .spec-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--ink);
+    font-weight: 500;
+    text-align: right;
+    max-width: 55%;
+  }
+
+  .card-desc {
+    font-size: 13.5px;
+    color: #444;
+    line-height: 1.75;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--cream);
+    flex-grow: 1;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--brass-dk);
+    color: #fff;
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-top: 10px;
+    align-self: flex-start;
+  }
+  .badge.vintage { background: var(--accent); }
+  .badge.custom  { background: #2C5F2E; }
+  .badge.boutique{ background: #1A3A5C; }
+  .badge.german  { background: #5C3A1A; }
+
+  /* COMPARISON TABLE */
+  .compare-section {
+    margin: 0 0 60px;
+  }
+  .compare-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .compare-section .subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: var(--slide);
+    color: var(--brass-lt);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    text-align: left;
+    white-space: nowrap;
+  }
+  tbody tr { background: #fff; }
+  tbody tr:nth-child(even) { background: #FAF7F2; }
+  tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  tbody td:first-child {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+  .dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  .dot-vintage  { background: var(--accent); }
+  .dot-custom   { background: #2C5F2E; }
+  .dot-boutique { background: #1A3A5C; }
+  .dot-german   { background: #5C3A1A; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--slide);
+    text-align: center;
+    padding: 36px 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 2px solid var(--brass-dk);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+  }
+  .footer span { color: var(--brass-lt); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <p class="hero-label">Chanon's Vault</p>
+  <h1>The <em>NotebookLM</em> Collection</h1>
+  <p>An in-depth look at each trombone curated in Chanon's reference library — covering bespoke boutiques, ultra-rare vintage pieces, and historically significant customs.</p>
+</div>
+
+<div class="wrapper">
+
+  <div class="section-intro">
+    <h2>The Collection — Eight Instruments Explained</h2>
+    <p>From legendary American factory craftsmanship to modern artisanal masterpieces, this collection spans the full spectrum of the finest brass engineering in history.</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Thein+Belcanto');"></div>
+      <div class="card-head">
+        <div class="card-type">Tenor Trombone · German Boutique</div>
+        <div class="card-name">Thein "Belcanto"</div>
+        <div class="card-era">Modern Production · Bremen, Germany</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Bore</span><span class="spec-val">.547″ (13.9 mm)</span></div>
+        <div class="spec-row"><span class="spec-key">Bell</span><span class="spec-val">8-1/2″ cut-bell</span></div>
+        <div class="spec-row"><span class="spec-key">Valve</span><span class="spec-val">Open Flow (Hagmann style)</span></div>
+        <div class="spec-row"><span class="spec-key">Material</span><span class="spec-val">Yellow Brass (0.45mm wall)</span></div>
+        <p class="card-desc">Developed alongside soloist Peter Steiner, the Belcanto bridges the gap between the compact core of standard valves and the free-blowing axial flow. It features a stunning French rim cut-bell design (for travel convenience and a compact core) and is known for its beautiful resonance, secure upper register, and an enticing spectrum of tonal characteristics ranging from sultry lows to projecting highs.</p>
+        <span class="badge german">German Masterwork</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Thein+American+22');"></div>
+      <div class="card-head">
+        <div class="card-type">Tenor Trombone · German Boutique</div>
+        <div class="card-name">Thein "American 22"</div>
+        <div class="card-era">Modern Production · Bremen, Germany</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Bore</span><span class="spec-val">.547″ (13.9 mm)</span></div>
+        <div class="spec-row"><span class="spec-key">Bell</span><span class="spec-val">8-1/2″ French rim</span></div>
+        <div class="spec-row"><span class="spec-key">Valve</span><span class="spec-val">1 Thayer</span></div>
+        <div class="spec-row"><span class="spec-key">Material</span><span class="spec-val">Yellow Brass (0.5mm wall)</span></div>
+        <p class="card-desc">Designed in close cooperation with Nathan Zgonc of the Atlanta Symphony Orchestra. The "American 22" aims to blend Thein's legendary German craftsmanship with the broad, open orchestral sound preferred by American symphonic players. It pairs a traditional Thayer valve with a reversed tuning slide and Belcanto balancer.</p>
+        <span class="badge german">German Masterwork</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Custom+Bach+42B');"></div>
+      <div class="card-head">
+        <div class="card-type">Custom Tenor Trombone · Vintage American</div>
+        <div class="card-name">Custom Mt. Vernon Bach 42B</div>
+        <div class="card-era">1964 Bell / Modern Rebuild</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Bell</span><span class="spec-val">1964 MV Yellow Brass</span></div>
+        <div class="spec-row"><span class="spec-key">Slide</span><span class="spec-val">Edwards w/ 1960 MV Crook</span></div>
+        <div class="spec-row"><span class="spec-key">Valve</span><span class="spec-val">Instrument Innovations</span></div>
+        <div class="spec-row"><span class="spec-key">Tuning</span><span class="spec-val">Reversed (Unlacquered)</span></div>
+        <p class="card-desc">A highly customized "Franken-horn" originally owned by Shachar Israel of the Cleveland Orchestra, rebuilt with extreme precision. It merges a dent-free 1964 Mt. Vernon yellow brass bell, an Instrument Innovations valve block for smooth and quiet action, and an Edwards outer slide paired with a vintage 1960 Mt. Vernon yellow crook. The result is a meaty, responsive, and incredibly colorful representation of the classic Bach sound.</p>
+        <span class="badge custom">Custom Build</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Corp+Bach+42G');"></div>
+      <div class="card-head">
+        <div class="card-type">Tenor Trombone · Vintage American</div>
+        <div class="card-name">Bach Stradivarius 42G</div>
+        <div class="card-era">1970s Corporation Era</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Bore</span><span class="spec-val">.547″ Large Bore</span></div>
+        <div class="spec-row"><span class="spec-key">Bell</span><span class="spec-val">8-1/2″ Gold Brass</span></div>
+        <div class="spec-row"><span class="spec-key">Valve</span><span class="spec-val">Traditional Closed Wrap F</span></div>
+        <div class="spec-row"><span class="spec-key">Slide</span><span class="spec-val">LT (Lightweight)</span></div>
+        <p class="card-desc">A highly-prized example from the Vincent Bach "Corporation" era (Elkhart). The Gold Brass (G) bell gives this horn immense resonance and a warm sizzle at high dynamics, while the lightweight slide allows for nimble, clear articulations. Many professional players prefer these carefully selected 1970s Corporation Bachs over modern mass-produced equivalents for their distinctive, broad sound that still anchors the American orchestral trombone section.</p>
+        <span class="badge vintage">Vintage Icon</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Stephens+Tenor');"></div>
+      <div class="card-head">
+        <div class="card-type">Custom Tenor Trombone · Modern Boutique</div>
+        <div class="card-name">Stephens Brass Tenor</div>
+        <div class="card-era">Modern Production · Vermont, USA</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Bore</span><span class="spec-val">.547″ Large Bore</span></div>
+        <div class="spec-row"><span class="spec-key">Bell</span><span class="spec-val">MV Style or Conn 1920s Style</span></div>
+        <div class="spec-row"><span class="spec-key">Valve Options</span><span class="spec-val">Rotary or Axial Flow</span></div>
+        <div class="spec-row"><span class="spec-key">Maker</span><span class="spec-val">Steve Shires</span></div>
+        <p class="card-desc">Built in Vermont by Steve Shires (founder of S.E. Shires Co.), Stephens Brass represents a return to small-batch, fully customized brass making. The tenor models offer a choice between an homage to the Mt. Vernon Bach (yellow/gold brass) or a 1920s Conn style (seamed red brass). Paired with his newly designed rotary valves or an Axial flow, these horns offer an elite, tailored playing experience.</p>
+        <span class="badge boutique">Modern Boutique</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Stephens+Bass');"></div>
+      <div class="card-head">
+        <div class="card-type">Custom Bass Trombone · Modern Boutique</div>
+        <div class="card-name">Stephens Brass Bass</div>
+        <div class="card-era">Modern Production · Vermont, USA</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Bore</span><span class="spec-val">.562″ or .562/.578″ Dual</span></div>
+        <div class="spec-row"><span class="spec-key">Valves</span><span class="spec-val">Inline F/Gb/D or F/D</span></div>
+        <div class="spec-row"><span class="spec-key">Valve Type</span><span class="spec-val">Stephens Rotary</span></div>
+        <div class="spec-row"><span class="spec-key">Bell</span><span class="spec-val">MV or Conn style</span></div>
+        <p class="card-desc">Another masterwork from Steve Shires, the Stephens Bass is designed to meet the demands of top-tier professionals. It features completely in-house designed rotary valves known for being remarkably airtight and even-slotting. With dual or single bore slide options and wide crooks, the horn creates an immense, structured wall of sound, deeply favored by modern commercial and orchestral bass trombonists.</p>
+        <span class="badge boutique">Modern Boutique</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Earl+Williams+Model+6');"></div>
+      <div class="card-head">
+        <div class="card-type">Jazz Tenor Trombone · American Artisan</div>
+        <div class="card-name">Earl Williams Model 6</div>
+        <div class="card-era">Mid-20th Century · Burbank, CA</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Category</span><span class="spec-val">Small Bore Jazz</span></div>
+        <div class="spec-row"><span class="spec-key">Status</span><span class="spec-val">"Holy Grail" Jazz Horn</span></div>
+        <div class="spec-row"><span class="spec-key">Maker</span><span class="spec-val">Earl Williams</span></div>
+        <div class="spec-row"><span class="spec-key">Notable Trait</span><span class="spec-val">Incredible Upper Register</span></div>
+        <p class="card-desc">Referred to as the "Holy Grail" of jazz trombones. Earl Williams crafted instruments out of his shop in Burbank that drew the who's-who of West Coast Trombone Royalty (Dick Nash, Milt Bernhart). The Model 6 is legendary for its vibrant, singing lead voice, extraordinary craftsmanship, and unmatched agility in the upper register. True original Williams horns are extremely rare and coveted artifacts.</p>
+        <span class="badge custom">Artisan Legend</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-photo" style="background-image: url('https://placehold.co/600x400/E8E0D0/6B6050?text=Conn+35H+Alto');"></div>
+      <div class="card-head">
+        <div class="card-type">Alto Trombone · Vintage American</div>
+        <div class="card-name">Conn 35H Eb Alto</div>
+        <div class="card-era">Elkhart, Indiana</div>
+      </div>
+      <div class="card-body">
+        <div class="spec-row"><span class="spec-key">Pitch</span><span class="spec-val">Eb Alto</span></div>
+        <div class="spec-row"><span class="spec-key">Bore</span><span class="spec-val">Dual Bore</span></div>
+        <div class="spec-row"><span class="spec-key">Feature</span><span class="spec-val">Tuning in Slide</span></div>
+        <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Clear Lacquer / Brass</span></div>
+        <p class="card-desc">The Conn 35H is a highly distinctive Eb alto trombone famously utilizing a "tuning in slide" mechanism rather than a traditional tuning slide in the bell section. This design preserves the unbroken taper of the bell flare, resulting in a uniquely brilliant and focused alto voice. Vintage Elkhart Conn altos are prized by orchestral players for classical and baroque repertoire.</p>
+        <span class="badge vintage">Ultra-Rare Vintage</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="compare-section">
+    <h3>Side-by-Side Comparison</h3>
+    <p class="subtitle">Quick reference guide evaluating era, configuration, and best use cases for the collection.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th>Bore / Size</th>
+            <th>Bell / Wrap</th>
+            <th>Valve Type</th>
+            <th>Best For</th>
+            <th>Notable Features</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="dot dot-german"></span>Thein Belcanto</td>
+            <td>.547″ Large</td>
+            <td>8-1/2″ Cut-Bell</td>
+            <td>Open Flow (Hagmann)</td>
+            <td>Symphonic / Solo</td>
+            <td>French rim; Modular travel design</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-german"></span>Thein American 22</td>
+            <td>.547″ Large</td>
+            <td>8-1/2″ French Rim</td>
+            <td>Thayer Valve</td>
+            <td>Symphony Orchestra</td>
+            <td>American orchestral sound profile</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-custom"></span>Custom MV Bach 42B</td>
+            <td>.547″ Large</td>
+            <td>1964 MV Yellow Brass</td>
+            <td>Instrument Innovations</td>
+            <td>Pro Orchestral</td>
+            <td>Edwards slide + '60s MV Crook</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-vintage"></span>Corp. Bach 42G</td>
+            <td>.547″ Large</td>
+            <td>8-1/2″ Gold Brass</td>
+            <td>Traditional Closed Wrap</td>
+            <td>Symphonic Core</td>
+            <td>Lightweight (LT) slide; 1970s warmth</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-boutique"></span>Stephens Tenor</td>
+            <td>.547″ Large</td>
+            <td>MV or 1920s Conn</td>
+            <td>Rotary or Axial</td>
+            <td>Versatile / Chamber</td>
+            <td>Steve Shires bespoke craftsmanship</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-boutique"></span>Stephens Bass</td>
+            <td>.562″ Bass</td>
+            <td>MV or Conn Bass</td>
+            <td>Inline Rotary</td>
+            <td>Symphony Bass</td>
+            <td>Airtight custom Stephens valves</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-custom"></span>Earl Williams Model 6</td>
+            <td>Small Bore</td>
+            <td>Yellow Brass</td>
+            <td>Straight (No Valve)</td>
+            <td>Lead Jazz / Studio</td>
+            <td>Burbank "Holy Grail" status</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-vintage"></span>Conn 35H Alto</td>
+            <td>Alto Dual-Bore</td>
+            <td>Eb Alto Flare</td>
+            <td>Straight Alto</td>
+            <td>Baroque / Classical</td>
+            <td>Tuning-in-slide mechanism</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="compare-section">
+    <h3>Sound Character &amp; Player Experience</h3>
+    <p class="subtitle">How these horns feel behind the mouthpiece based on professional consensus.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Instrument</th>
+            <th>Tonal Character</th>
+            <th>Response & Articulation</th>
+            <th>Dynamic Palette</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="dot dot-german"></span>Thein Belcanto</td>
+            <td>Colorful, resonant, singing "bel canto" voice</td>
+            <td>Extremely sensitive response; crisp articulations</td>
+            <td>Sultry lows to projecting, brilliant highs</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-german"></span>Thein American 22</td>
+            <td>Broad, open, deeply sonorous</td>
+            <td>Free-blowing Thayer feel</td>
+            <td>Massive ceiling; won't break up at fff</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-custom"></span>Custom MV Bach 42B</td>
+            <td>Meaty, colorful, classic "Bach" core</td>
+            <td>Smooth and quiet valve; tension-free blow</td>
+            <td>Rich at all levels; extremely flexible</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-vintage"></span>Corp. Bach 42G</td>
+            <td>Warm, dark gold brass sizzle</td>
+            <td>LT slide offers nimble, fast response</td>
+            <td>Thick core that maintains warmth when pushed</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-boutique"></span>Stephens Tenor</td>
+            <td>Vintage New York clarity and ring</td>
+            <td>Even-slotting; airtight valve response</td>
+            <td>Exceptional flexibility and blend</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-boutique"></span>Stephens Bass</td>
+            <td>Deep, foundational, powerful</td>
+            <td>Fast action; highly reliable partial slots</td>
+            <td>Can anchor the heaviest orchestral tuttis</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-custom"></span>Earl Williams Model 6</td>
+            <td>Zippy, electric, bright lead core</td>
+            <td>Lightning fast; slots the upper register effortlessly</td>
+            <td>Cuts effortlessly through big bands</td>
+          </tr>
+          <tr>
+            <td><span class="dot dot-vintage"></span>Conn 35H Alto</td>
+            <td>Sweet, lyrical, focused</td>
+            <td>Unbroken bell taper allows for immediate feedback</td>
+            <td>Elegant in soft passages, commanding when needed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="background:#fff; border-radius:4px; padding:20px 24px; border-left:4px solid var(--brass); font-size:13px; color:var(--muted); line-height:1.9;">
+    <strong style="color:var(--ink); font-family:'Playfair Display',serif; font-size:15px;">Legend</strong><br>
+    <span class="dot dot-vintage" style="width:12px;height:12px;"></span> <strong>Vintage American</strong> — Classic factory-era instruments (Elkhart/Mt. Vernon), historically dominant.<br>
+    <span class="dot dot-german" style="width:12px;height:12px;"></span> <strong>German Boutique</strong> — Precision European manufacturing focused on modularity and extreme tolerances.<br>
+    <span class="dot dot-custom" style="width:12px;height:12px;"></span> <strong>American Artisan</strong> — Highly customized or master-built solo efforts (Earl Williams, Franken-horns).<br>
+    <span class="dot dot-boutique" style="width:12px;height:12px;"></span> <strong>Modern Boutique</strong> — Current-generation master builders utilizing proprietary technology (Steve Shires/Stephens).
+  </div>
+
+</div>
+
+<div class="footer">
+  Compiled from NotebookLM Extracted Data &nbsp;|&nbsp; <span>8 Instruments · 4 Categories · Decades of Brass History</span>
+</div>
+
+</body>
+</html>
